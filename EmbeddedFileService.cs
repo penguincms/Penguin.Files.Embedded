@@ -1,59 +1,32 @@
 ﻿using Penguin.Files.Embedded.Extensions;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace Penguin.Files.Embedded
 {
     public static class EmbeddedFileService
     {
-        public static byte[] ReadAllBytes(string path, Assembly source) {
-            if (string.IsNullOrEmpty(path))
+        public static byte[] ReadAllBytes(ResourceExtractionDescriptor descriptor)
+        {
+            if (descriptor is null)
             {
-                throw new ArgumentException($"'{nameof(path)}' cannot be null or empty", nameof(path));
+                throw new ArgumentNullException(nameof(descriptor));
             }
 
-            if (source is null)
-            {
-                throw new ArgumentNullException(nameof(source));
-            }
-
-            return TryExtract(path, source, File.ReadAllBytes); 
+            return TryExtract(descriptor, File.ReadAllBytes);
         }
 
-        public static byte[] ReadAllBytes(string path)
+        public static string ReadAllText(ResourceExtractionDescriptor descriptor)
         {
-            if (path is null)
+            if (descriptor is null)
             {
-                throw new ArgumentNullException(nameof(path));
+                throw new ArgumentNullException(nameof(descriptor));
             }
 
-            return ReadAllBytes(path, Assembly.GetCallingAssembly());
-        }
-
-        public static string ReadAllText(string path, Assembly source)
-        {
-            if (path is null)
-            {
-                throw new ArgumentNullException(nameof(path));
-            }
-
-            if (source is null)
-            {
-                throw new ArgumentNullException(nameof(source));
-            }
-
-            return TryExtract(path, source, File.ReadAllText);
-        }
-
-        public static string ReadAllText(string path)
-        {
-            if (path is null)
-            {
-                throw new ArgumentNullException(nameof(path));
-            }
-
-            return ReadAllText(path, Assembly.GetCallingAssembly());
+            return TryExtract(descriptor, File.ReadAllText);
         }
 
         private static byte[] ReadResource(Assembly assembly, string resourceName)
@@ -65,25 +38,72 @@ namespace Penguin.Files.Embedded
             }
         }
 
-        private static T TryExtract<T>(string path, Assembly assembly, Func<string, T> toCall)
+        
+        public static IEnumerable<ResourceDescriptor> EnumerateFiles(ResourceEnumerationDescriptor descriptor)
         {
-            string resourceName = path.Replace("/", ".").Replace("\\", ".");
+            if (descriptor is null)
+            {
+                throw new ArgumentNullException(nameof(descriptor));
+            }
 
-            resourceName = $"{assembly.GetName().Name}.{resourceName}";
+            IEnumerable<string> files = descriptor.SourceAssembly.GetManifestResourceNames();
 
-            FileInfo resourceFile = new FileInfo(path);
-      
+            if (!string.IsNullOrWhiteSpace(descriptor.SearchDirectory))
+            {
+                files = files.Where(r => r.StartsWith(descriptor.GetSearchRoot()));
+            }
+
+            foreach(string f in files)
+            {
+                yield return new ResourceDescriptor()
+                {
+                    SourceAssembly = descriptor.SourceAssembly,
+                    Namespace = descriptor.Namespace,
+                    ResourceFullPath = f
+                };
+            }
+        }
+
+
+        public static bool TryExtract(ResourceExtractionDescriptor descriptor)
+        {
+            if (descriptor is null)
+            {
+                throw new ArgumentNullException(nameof(descriptor));
+            }
+
+            FileInfo resourceFile = new FileInfo(descriptor.OutputPath);
+
             if (!resourceFile.Exists)
             {
-                if(!resourceFile.Directory.Exists)
+                if (!resourceFile.Directory.Exists)
                 {
                     resourceFile.Directory.Create();
                 }
 
-                File.WriteAllBytes(path, ReadResource(assembly, resourceName));
+                File.WriteAllBytes(descriptor.OutputPath, ReadResource(descriptor.SourceAssembly, descriptor.GetResourcePath()));
+
+                return true;
             }
 
-            return toCall.Invoke(path);
+            return false;
+        }
+
+        private static T TryExtract<T>(ResourceExtractionDescriptor descriptor, Func<string, T> toCall)
+        {
+            if (descriptor is null)
+            {
+                throw new ArgumentNullException(nameof(descriptor));
+            }
+
+            if (toCall is null)
+            {
+                throw new ArgumentNullException(nameof(toCall));
+            }
+
+            TryExtract(descriptor);
+
+            return toCall.Invoke(descriptor.OutputPath);
         }
     }
 }
