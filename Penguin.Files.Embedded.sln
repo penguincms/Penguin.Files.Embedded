@@ -1,25 +1,34 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.30323.103
+VisualStudioVersion = 16.6.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Penguin.Files.Embedded", "Penguin.Files.Embedded.csproj", "{A59162FC-CB4F-48E7-BB5A-169E40CD341D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Penguin.Files.Embedded", "Penguin.Files.Embedded.csproj", "{D57DFA54-75BB-4334-9282-622D2E7D77FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A59162FC-CB4F-48E7-BB5A-169E40CD341D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A59162FC-CB4F-48E7-BB5A-169E40CD341D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A59162FC-CB4F-48E7-BB5A-169E40CD341D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A59162FC-CB4F-48E7-BB5A-169E40CD341D}.Release|Any CPU.Build.0 = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {019A7709-D874-4FE2-A35B-3FAE295841FD}
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D57DFA54-75BB-4334-9282-622D2E7D77FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D57DFA54-75BB-4334-9282-622D2E7D77FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D57DFA54-75BB-4334-9282-622D2E7D77FC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D57DFA54-75BB-4334-9282-622D2E7D77FC}.Debug|x64.Build.0 = Debug|Any CPU
+		{D57DFA54-75BB-4334-9282-622D2E7D77FC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D57DFA54-75BB-4334-9282-622D2E7D77FC}.Debug|x86.Build.0 = Debug|Any CPU
+		{D57DFA54-75BB-4334-9282-622D2E7D77FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D57DFA54-75BB-4334-9282-622D2E7D77FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D57DFA54-75BB-4334-9282-622D2E7D77FC}.Release|x64.ActiveCfg = Release|Any CPU
+		{D57DFA54-75BB-4334-9282-622D2E7D77FC}.Release|x64.Build.0 = Release|Any CPU
+		{D57DFA54-75BB-4334-9282-622D2E7D77FC}.Release|x86.ActiveCfg = Release|Any CPU
+		{D57DFA54-75BB-4334-9282-622D2E7D77FC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

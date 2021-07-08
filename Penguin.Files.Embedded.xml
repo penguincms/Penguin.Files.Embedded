@@ -4,5 +4,41 @@
         <name>Penguin.Files.Embedded</name>
     </assembly>
     <members>
+        <member name="P:Penguin.Files.Embedded.ResourceDescriptor.SourceAssembly">
+            <summary>
+            The assembly to search for the resource in. If defaults to executing
+            </summary>
+        </member>
+        <member name="P:Penguin.Files.Embedded.ResourceDescriptor.ResourceFullPath">
+            <summary>
+            Full path to the resource, overrides any other values
+            </summary>
+        </member>
+        <member name="P:Penguin.Files.Embedded.ResourceDescriptor.Namespace">
+            <summary>
+            The namespace the resource is rooted in
+            </summary>
+        </member>
+        <member name="T:Penguin.Files.Embedded.ResourceExtractionDescriptor">
+            <summary>
+            Defines how a resource should be extracted from an assembly, where it should be extracted to, and what assembly is being targeted
+            </summary>
+        </member>
+        <member name="P:Penguin.Files.Embedded.ResourceExtractionDescriptor.ResourceLocalPath">
+            <summary>
+            The path to the resource inside of the containing assembly
+            </summary>
+        </member>
+        <member name="M:Penguin.Files.Embedded.ResourceExtractionDescriptor.GetResourcePath">
+            <summary>
+            Gets the full path including namespace, using the provided information
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Penguin.Files.Embedded.ResourceExtractionDescriptor.OutputPath">
+            <summary>
+            The file path that the embedded resource should be extracted to on disk
+            </summary>
+        </member>
     </members>
 </doc>
