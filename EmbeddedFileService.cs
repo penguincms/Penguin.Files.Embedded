@@ -32,9 +32,17 @@ namespace Penguin.Files.Embedded
         private static byte[] ReadResource(Assembly assembly, string resourceName)
         {
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (BinaryReader reader = new BinaryReader(stream))
             {
-                return reader.ReadAllBytes();
+
+                if (stream == null)
+                {
+                    throw new ArgumentException($"No resource was found in the assembly '{assembly.FullName}' with the name '{resourceName}'");
+                }
+
+                using (BinaryReader reader = new BinaryReader(stream))
+                {
+                    return reader.ReadAllBytes();
+                }
             }
         }
 

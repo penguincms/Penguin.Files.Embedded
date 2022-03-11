@@ -6,7 +6,7 @@
     <members>
         <member name="P:Penguin.Files.Embedded.ResourceDescriptor.SourceAssembly">
             <summary>
-            The assembly to search for the resource in. If defaults to executing
+            The assembly to search for the resource in. If defaults to calling
             </summary>
         </member>
         <member name="P:Penguin.Files.Embedded.ResourceDescriptor.ResourceFullPath">

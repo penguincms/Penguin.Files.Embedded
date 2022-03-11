@@ -6,9 +6,9 @@ namespace Penguin.Files.Embedded
     public class ResourceDescriptor
     {
         /// <summary>
-        /// The assembly to search for the resource in. If defaults to executing
+        /// The assembly to search for the resource in. If defaults to calling
         /// </summary>
-        public Assembly SourceAssembly { get; set; } = Assembly.GetExecutingAssembly();
+        public Assembly SourceAssembly { get; set; } = Assembly.GetCallingAssembly();
 
 
         /// <summary>
@@ -35,12 +35,17 @@ namespace Penguin.Files.Embedded
     /// </summary>
     public class ResourceExtractionDescriptor : ResourceDescriptor
     {
-
-        public static implicit operator ResourceExtractionDescriptor(string path) => new ResourceExtractionDescriptor()
+        public static ResourceExtractionDescriptor FromPath(string path, Assembly source = null)
         {
-            ResourceLocalPath = path,
-            OutputPath = path
-        };
+            Assembly callingAssembly = source ?? Assembly.GetCallingAssembly();
+
+            return new ResourceExtractionDescriptor()
+            {
+                ResourceLocalPath = path,
+                OutputPath = path,
+                SourceAssembly = callingAssembly
+            };
+        }
 
         public ResourceExtractionDescriptor()
         {
