@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Reflection;
 
 namespace Penguin.Files.Embedded
@@ -10,12 +10,10 @@ namespace Penguin.Files.Embedded
         /// </summary>
         public Assembly SourceAssembly { get; set; } = Assembly.GetCallingAssembly();
 
-
         /// <summary>
         /// Full path to the resource, overrides any other values
         /// </summary>
         public string ResourceFullPath { get; set; }
-
 
         /// <summary>
         /// The namespace the resource is rooted in

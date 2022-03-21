@@ -1,4 +1,4 @@
-﻿using Penguin.Files.Embedded.Extensions;
+using Penguin.Files.Embedded.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -46,7 +46,6 @@ namespace Penguin.Files.Embedded
             }
         }
 
-        
         public static IEnumerable<ResourceDescriptor> EnumerateFiles(ResourceEnumerationDescriptor descriptor)
         {
             if (descriptor is null)
@@ -71,7 +70,6 @@ namespace Penguin.Files.Embedded
                 };
             }
         }
-
 
         public static bool TryExtract(ResourceExtractionDescriptor descriptor)
         {
