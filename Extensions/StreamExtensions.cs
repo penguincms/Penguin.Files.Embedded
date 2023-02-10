@@ -8,17 +8,15 @@ namespace Penguin.Files.Embedded.Extensions
         {
             // Pre .Net version 4.0
             const int bufferSize = 4096;
-            using (MemoryStream ms = new MemoryStream())
+            using MemoryStream ms = new();
+            byte[] buffer = new byte[bufferSize];
+            int count;
+            while ((count = reader.Read(buffer, 0, buffer.Length)) != 0)
             {
-                byte[] buffer = new byte[bufferSize];
-                int count;
-                while ((count = reader.Read(buffer, 0, buffer.Length)) != 0)
-                {
-                    ms.Write(buffer, 0, count);
-                }
-
-                return ms.ToArray();
+                ms.Write(buffer, 0, count);
             }
+
+            return ms.ToArray();
         }
     }
 }

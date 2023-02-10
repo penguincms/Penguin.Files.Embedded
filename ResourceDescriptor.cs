@@ -25,7 +25,10 @@ namespace Penguin.Files.Embedded
     {
         public string SearchDirectory { get; set; }
 
-        public string GetSearchRoot() => $"{this.Namespace ?? this.SourceAssembly.GetName().Name}.{this.SearchDirectory.Replace("\\", ".")}.";
+        public string GetSearchRoot()
+        {
+            return $"{Namespace ?? SourceAssembly.GetName().Name}.{SearchDirectory.Replace("\\", ".")}.";
+        }
     }
 
     /// <summary>
@@ -56,9 +59,9 @@ namespace Penguin.Files.Embedded
                 throw new ArgumentNullException(nameof(descriptor));
             }
 
-            this.Namespace = descriptor.Namespace;
-            this.SourceAssembly = descriptor.SourceAssembly;
-            this.ResourceFullPath = descriptor.ResourceFullPath;
+            Namespace = descriptor.Namespace;
+            SourceAssembly = descriptor.SourceAssembly;
+            ResourceFullPath = descriptor.ResourceFullPath;
         }
 
         /// <summary>
@@ -72,14 +75,14 @@ namespace Penguin.Files.Embedded
         /// <returns></returns>
         public string GetResourcePath()
         {
-            if (this.ResourceFullPath != null)
+            if (ResourceFullPath != null)
             {
-                return this.ResourceFullPath;
+                return ResourceFullPath;
             }
 
-            string targetNs = this.Namespace ?? this.SourceAssembly.GetName().Name;
+            string targetNs = Namespace ?? SourceAssembly.GetName().Name;
 
-            return $"{targetNs}.{this.ResourceLocalPath.Replace("\\", ".")}";
+            return $"{targetNs}.{ResourceLocalPath.Replace("\\", ".")}";
         }
 
         /// <summary>

@@ -11,39 +11,24 @@ namespace Penguin.Files.Embedded
     {
         public static byte[] ReadAllBytes(ResourceExtractionDescriptor descriptor)
         {
-            if (descriptor is null)
-            {
-                throw new ArgumentNullException(nameof(descriptor));
-            }
-
-            return TryExtract(descriptor, File.ReadAllBytes);
+            return descriptor is null ? throw new ArgumentNullException(nameof(descriptor)) : TryExtract(descriptor, File.ReadAllBytes);
         }
 
         public static string ReadAllText(ResourceExtractionDescriptor descriptor)
         {
-            if (descriptor is null)
-            {
-                throw new ArgumentNullException(nameof(descriptor));
-            }
-
-            return TryExtract(descriptor, File.ReadAllText);
+            return descriptor is null ? throw new ArgumentNullException(nameof(descriptor)) : TryExtract(descriptor, File.ReadAllText);
         }
 
         private static byte[] ReadResource(Assembly assembly, string resourceName)
         {
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using Stream stream = assembly.GetManifestResourceStream(resourceName);
+            if (stream == null)
             {
-
-                if (stream == null)
-                {
-                    throw new ArgumentException($"No resource was found in the assembly '{assembly.FullName}' with the name '{resourceName}'");
-                }
-
-                using (BinaryReader reader = new BinaryReader(stream))
-                {
-                    return reader.ReadAllBytes();
-                }
+                throw new ArgumentException($"No resource was found in the assembly '{assembly.FullName}' with the name '{resourceName}'");
             }
+
+            using BinaryReader reader = new(stream);
+            return reader.ReadAllBytes();
         }
 
         public static IEnumerable<ResourceDescriptor> EnumerateFiles(ResourceEnumerationDescriptor descriptor)
@@ -60,7 +45,7 @@ namespace Penguin.Files.Embedded
                 files = files.Where(r => r.StartsWith(descriptor.GetSearchRoot()));
             }
 
-            foreach(string f in files)
+            foreach (string f in files)
             {
                 yield return new ResourceDescriptor()
                 {
@@ -78,7 +63,7 @@ namespace Penguin.Files.Embedded
                 throw new ArgumentNullException(nameof(descriptor));
             }
 
-            FileInfo resourceFile = new FileInfo(descriptor.OutputPath);
+            FileInfo resourceFile = new(descriptor.OutputPath);
 
             if (!resourceFile.Exists)
             {
@@ -107,7 +92,7 @@ namespace Penguin.Files.Embedded
                 throw new ArgumentNullException(nameof(toCall));
             }
 
-            TryExtract(descriptor);
+            _ = TryExtract(descriptor);
 
             return toCall.Invoke(descriptor.OutputPath);
         }
