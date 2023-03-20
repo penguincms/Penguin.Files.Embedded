@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;net7.0</TargetFrameworks>
-    <PackageProjectUrl>https://github.com/PenguinCMS/Penguin.Files.Embedded</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/PenguinCms/Penguin.Files.Embedded</PackageProjectUrl>
     <DocumentationFile>Penguin.Files.Embedded.xml</DocumentationFile>
     <Version>5.0.5</Version>
     <AssemblyName>Penguin.Files.Embedded</AssemblyName>
